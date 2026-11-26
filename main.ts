@@ -1,13 +1,14 @@
-// News-image entry for 25 November 2026 (Node 22, standard library only).
-// The image is drawn once by build_image.py from the day's verified
-// headlines and held in this repository as entry.png; this program copies
-// it to /output/entry.png, with no network and no randomness, so both
-// grader runs write the same bytes.
-//
-// Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
-//   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+import { copyFileSync, existsSync, mkdirSync, readFileSync, statSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-import { copyFileSync } from 'node:fs';
-import { join } from 'node:path';
-
-copyFileSync(new URL('./entry.png', import.meta.url), join(process.env.MAKEFUN_OUTPUT_DIR ?? '/output', 'entry.png'));
+const root = dirname(fileURLToPath(import.meta.url));
+const out = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+mkdirSync(out, { recursive: true });
+const src = join(root, "entry.png");
+if (!existsSync(src)) throw new Error("entry.png missing from repository");
+const header = readFileSync(src).subarray(0, 8);
+const pngMagic = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+if (!header.equals(pngMagic)) throw new Error("entry.png is not a PNG file");
+copyFileSync(src, join(out, "entry.png"));
+console.log(`copied entry.png (${statSync(src).size} bytes) to ${out}`);

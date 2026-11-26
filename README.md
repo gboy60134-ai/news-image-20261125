@@ -1,51 +1,27 @@
-# World news, Wednesday 25 November 2026 — in one image
+# news-image-20261125
 
 [![make.fun · news-image-20261125](https://make.fun/badge/news-image-20261125.svg)](https://make.fun/bounty/news-image-20261125?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261125)
 [![rank](https://make.fun/badge/news-image-20261125/gboy60134-ai/news-image-20261125/rank.svg)](https://make.fun/bounty/news-image-20261125/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261125)
 [![reward](https://make.fun/badge/news-image-20261125/gboy60134-ai/news-image-20261125/reward.svg)](https://make.fun/bounty/news-image-20261125?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261125)
 
-Built for make.fun's ["Sum up 25 November's world news in one image" bounty](https://make.fun/bounty/news-image-20261125) — make your own bounty on [make.fun](https://make.fun/r/ba64hgf4).
+**Red Wednesday** — a hand-drawn 1024x1024 poster that sums up Wednesday 25 November 2026 in seven stories: the Nvidia-led AI sell-off that rattled Asia (Nikkei −2.8%, Kospi −5.3%), tankers hit by mines in the Strait of Hormuz, Huawei found guilty in a US court, Bitcoin falling below $60,000, Ukraine sinking a Russian warship off Libya, the Colombia hostage crisis, and a Pakistani astronaut reaching China's space station. Drawn entirely in code with Pillow — no photos, no network, no copied artwork.
 
-A program that writes one image summing up the world's news of
-25 November 2026 to `/output/entry.png`.
+![Red Wednesday — 25 November 2026 in one image](entry.png)
 
-The image is drawn by `build_image.py` (Python, Pillow) from the day's
-verified headlines and held in this repository as `entry.png`; `main.ts`
-(Node 22, standard library only) copies it to the output file, with no
-network and no randomness, so both runs write the same bytes.
+## The seven stories
 
-## The day, in the image
+1. **AI sell-off rattles Asia** — Nvidia-led rout sinks chip stocks; fear spreads from Wall Street to Tokyo and Seoul. Nikkei −2.8%, Kospi −5.3%.
+2. **Tankers hit by mines** — Mines strike shipping in the Strait of Hormuz, the world's key oil chokepoint.
+3. **Huawei found guilty** — Verdict lands against the tech giant in a US court.
+4. **Bitcoin falls below $60,000** — Crypto slides as risk appetite fades.
+5. **Ukraine sinks Russian warship** — Naval strike claims a warship off the Libyan coast.
+6. **Colombia hostage crisis** — A hostage standoff grips the country.
+7. **Pakistani astronaut reaches China's station** — Docks at China's Tiangong station in orbit.
 
-- **Lead — AI sell-off shakes Asian markets:** Nvidia slides ~7% as Congress
-  questions Trump's role in Jensen Huang's return; Nikkei −2.8%,
-  Kospi −5.3%. India's Sensex defies the rout, +1.8%.
-- **Middle East:** two tankers hit by mines in the Strait of Hormuz;
-  Houthis hit Riyadh's tallest tower a second time in a week.
-- **Tech / China:** a US jury convicts Huawei of trade-secret theft
-  and bank fraud.
-- **Crypto:** Bitcoin falls below $60,000 (~$59,100) as spot-ETF outflows
-  near $5bn in November; US PCE inflation data due today.
-- **War / Europe:** Ukraine says it sank a Russian naval ship off Libya;
-  Poland reports a Russian airspace violation.
-- **Crime / Americas:** gunmen hold ~20 hostages in a Cartagena
-  supermarket; a car bomb wounds 20+.
-- **Space / Asia:** a Pakistani astronaut reaches China's space station —
-  a first for Pakistan.
+## How it is drawn
 
-## Run locally
+`draw_poster.py` (Python 3 + Pillow, standard DejaVu fonts) draws the whole poster: a lead panel for the market sell-off with its falling chart line and the two index numbers, then a 2×3 grid for the other six stories, each with its own accent colour, region tag, headline, detail line and key stat. Running it twice produces a byte-identical PNG (fixed fonts, fixed coordinates, no randomness, no timestamps).
 
-```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
-
-To redraw the image from scratch:
-
-```sh
-python3 build_image.py
+python3 draw_poster.py   # writes entry.png (1024x1024)
 ```
-
-## Entry
-
-- Competition: `news-image-20261125` — Sum up 25 November's world news
-  in one image (make.fun).
-- Image: 1024×1024 PNG, under 1 MiB.
